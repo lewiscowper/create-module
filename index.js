@@ -5,15 +5,17 @@ var exec = require('child_process').exec
 var spawn = require('child_process').spawn
 var series = require('run-series')
 var parallel = require('run-parallel')
+var yaml = require('js-yaml');
 var base = 'https://api.github.com'
 var registry = 'https://registry.npmjs.org'
 
 module.exports = createModule
 
 var readmeTemplate = '# <package>\n[![NPM](https://nodei.co/npm/<package>.png)](https://nodei.co/npm/<package>/)\n'
+var travisTemplate = yaml.safeLoad(fs.readFileSync('./travisconfig.yml', 'utf8'))
 
 function createModule(name, token, cb) {
-  var headers = {"user-agent": "npm create-module"}
+  var headers = {"user-agent": "npm semantic-create-module"}
   var dir = path.join(process.cwd(), name)
   headers['Authorization'] = 'token ' + token
   var input = {
@@ -30,6 +32,10 @@ function createModule(name, token, cb) {
     createReadme,
     createGitignore,
     npmInit,
+    semanticInstall,
+    semanticSetup,
+    travisSetup,
+    nextSteps,
     parallel.bind(null, [gitPush, changeDescription])
     ], function (err) {
       if(err) console.error('Error: ' + err.message)
@@ -61,7 +67,7 @@ function createModule(name, token, cb) {
 
   function gitInit(cb) {
     console.log('Initialize git..')
-    exec('git init && git remote add origin ' + repo.clone_url, {cwd: dir}, function (err, stdo, stde) {
+    exec('git init && git remote add origin ' + repo.ssh_url, {cwd: dir}, function (err, stdo, stde) {
       process.stderr.write(stde)
       cb(err)
     })
@@ -92,6 +98,38 @@ function createModule(name, token, cb) {
     input.description = require(path.join(dir, 'package.json')).description
     var repoUrl = [base, 'repos', repo.full_name].join('/')
     request.patch(repoUrl, { json: input, headers: headers }, cb)
+  }
+
+  function semanticInstall (cb) {
+    var npmInstall = spawn('npm', ['install', '--save-dev', 'semantic-release'], {cwd: dir, stdio: [process.stdin, 'pipe', 'pipe']})
+    npmInstall.stdout.pipe(process.stdout)
+    npmInstall.stderr.pipe(process.stderr)
+    npmInstall.on('close', function (code) {
+      var err
+      if(code > 0) err = new Error('Failed npm install semantic-release')
+        cb(err)
+    });
+  }
+
+  function semanticSetup (cb) {
+    var semanticSetup = spawn('./node_modules/.bin/semantic-release', ['setup'], {cwd: dir, stdio: [process.stdin, 'pipe', 'pipe']})
+    semanticSetup.stdout.pipe(process.stdout)
+    semanticSetup.stderr.pipe(process.stderr)
+    semanticSetup.on('close', function (code) {
+      var err
+      if(code > 0) err = new Error('Failed semantic-release setup')
+        cb(err)
+    });
+  }
+
+  function travisSetup (cb) {
+    console.log('Create .travis.yml')
+    fs.writeFile(path.join(dir, '.travis.yml'), yaml.safeDump(travisTemplate), cb)
+  }
+
+  function nextSteps (cb) {
+    console.log('If you have a more sophisticated build with multiple jobs you should have a look at\nhttps://github.com/dmakhno/travis_after_all\n\nGrant the token repo/public_repo scope (all others can be deselected)\n\nEncrypt your GH_TOKEN with this:\ntravis encrypt GH_TOKEN=<token> --add\nThe same for your npm details\ntravis encrypt $(echo -n "<username>:<password>" | base64) --add deploy.api_key')
+    cb(null)
   }
   
   function gitPush(cb) {

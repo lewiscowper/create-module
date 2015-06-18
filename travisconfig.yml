@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+- iojs-v1
+sudo: false
+cache:
+  directories:
+  - node_modules
+notifications:
+  email: false
+before_deploy:
+- npm config set spin false --global
+env:
+  global: GH_TOKEN=<github-access-token-with-access-to-your-repo>
+deploy:
+  provider: npm
+  email: <your-npm-mail@example.com>
+  skip_cleanup: true
+  api_key: <npm-api-key>
+  on:
+    branch: master
+    repo: <user>/<repo>

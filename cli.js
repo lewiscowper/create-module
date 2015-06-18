@@ -3,16 +3,16 @@
 var ghauth = require('ghauth')
 
 var authOptions = {
-  configName : 'create-module'
+  configName : 'semantic-create-module'
   
   // (optional) whatever GitHub auth scopes you require
   , scopes     : ['public_repo']
   
   // (optional) saved with the token on GitHub
-  , note       : 'npm create-module module'
+  , note       : 'npm semantic-create-module module'
   
   // (optional)
-  , userAgent  : 'npm create-module'
+  , userAgent  : 'npm semantic-create-module'
 }
 
 if(process.argv.length === 2) {
