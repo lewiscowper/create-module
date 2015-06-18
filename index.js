@@ -128,7 +128,7 @@ function createModule(name, token, cb) {
   }
 
   function nextSteps (cb) {
-    console.log('If you have a more sophisticated build with multiple jobs you should have a look at\nhttps://github.com/dmakhno/travis_after_all\n\nGrant the token repo/public_repo scope (all others can be deselected)\n\nEncrypt your GH_TOKEN with this:\ntravis encrypt GH_TOKEN=<token> --add\nThe same for your npm details\ntravis encrypt $(echo -n "<username>:<password>" | base64) --add deploy.api_key')
+    console.log('If you have a more sophisticated build with multiple jobs you should have a look at\nhttps://github.com/dmakhno/travis_after_all\n\nGrant the token repo/public_repo scope (all others can be deselected)\nGo to travis-ci.org and enable travis for your repo\nEncrypt your GH_TOKEN with this:\ntravis encrypt GH_TOKEN=<token> --add\nThe same for your npm details\ntravis encrypt $(echo -n "<username>:<password>" | base64) --add deploy.api_key')
     cb(null)
   }
   
