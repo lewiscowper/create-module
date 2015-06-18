@@ -18,6 +18,7 @@ git remote add origin <githubrepo>
 echo <readme> > readme.md
 echo node_modules > .gitignore
 npm init
+# Setup semantic-release
 npm install --save-dev semantic-release
 ./node_modules/.bin/semantic-release setup
 add .travis.yml
