@@ -1,7 +1,5 @@
 ## Collaborators
 
-create-module is only possible due to the excellent work of the following collaborators:
+[lewiscowper](https://github.com/lewiscowper)
 
-<table><tbody><tr><th align="left">klaemo</th><td><a href="https://github.com/klaemo">GitHub/klaemo</a></td></tr>
-<tr><th align="left">finnp</th><td><a href="https://github.com/finnp">GitHub/finnp</a></td></tr>
-</tbody></table>
+This module was forked from the excellent [create-module](http://www.npm.im/create-module), by [finnp](https://github.com/finnp) and [klaemo](https://github.com/klaemo).

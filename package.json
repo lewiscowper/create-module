@@ -1,16 +1,18 @@
 {
-  "name": "create-module",
-  "version": "1.2.0",
-  "description": "Helper to create a module",
+  "name": "semantic-create-module",
+  "version": "0.0.0-semantically-released",
+  "description": "Helper to create a module and set up semantic-release",
   "main": "index.js",
   "bin": {
-    "create-module": "./cli.js"
+    "semantic-create-module": "./cli.js"
   },
   "preferGlobal": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Info: no tests specified\" && exit 0",
+    "prepublish": "semantic-release pre",
+    "postpublish": "semantic-release post"
   },
-  "author": "Finn Pauls",
+  "author": "Lewis Cowper",
   "license": "MIT",
   "dependencies": {
     "ghauth": "^0.3.1",
@@ -19,17 +21,20 @@
     "run-series": "^1.0.2",
     "js-yaml": "^3.3.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "semantic-release": "^3.4.1"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/finnp/create-module"
+    "url": "https://github.com/lewiscowper/semantic-create-module"
   },
   "keywords": [
     "module",
-    "init"
+    "init",
+    "semantic-release"
   ],
   "bugs": {
-    "url": "https://github.com/finnp/create-module/issues"
+    "url": "https://github.com/lewiscowper/semantic-create-module/issues"
   },
-  "homepage": "https://github.com/finnp/create-module"
+  "homepage": "https://github.com/lewiscowper/semantic-create-module"
 }

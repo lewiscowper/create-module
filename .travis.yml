@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+- iojs-v1
+sudo: false
+cache:
+  directories:
+  - node_modules
+notifications:
+  email: false
+before_deploy:
+- npm config set spin false --global
+env:
+  global:
+  - GH_TOKEN=<github-access-token-with-access-to-your-repo>
+  - secure: iD/+qhNuHgc2ivDCKfwB8NJlsnnnC3+KjXJb0pb4rxayVd+Ibl5fdUtsHiFMp+eWwoR+8Ya//Z6yzSmbVKuPxwvY72lIu9kd0ygAC22cSDJgEM66iMfEPYsOHtLVJx6EpQCaig3aTDPbb+V8Z/emzDXfGqu48ITcFwA/A+M9shxX/piQUQDYfLJGP7u65UU9hdNr+gU/GYK5VyYtjeeFxGMuh5xxGvD5eZI6rKW7XTisrm2QCP43fYHupdp8UgH36Qps1E6qetyapw/vdQIbAyORMX2RhSkhaMTiUWlC0+gP3nYuypaAnrk1yK4HoTEZimZo9Ry1z1ih0CFqK/CohLRyNC79Zoit/bGppd2WgJtT5Vm9HIbJd0QoOwmfgwwgc4irCHRWKp8+BwbCyTYic0+9Wq7p8DyCkq+EB2+Bi8NvqnQDFTCGAwQEMdE6C/msHqPg3nx5VFSI//BESjfEu72ihuaUGMoyMJzOv3vCAbZrwDOeC9IikvqZUJB4r2G4CcIyXc0p9c7HCuheDI/bootFKaEK2vznqcPMHl+xGHkc6NIZMKYXqse+4rbyS0HKtLhvp2/WgCscXOUM3aD8HnBFxH1UI8CuqbfKKAI8e2F0e4ofBhp1lttnSSqqvKDQB0bXilMsK669RTo2QHxWrumro4ZiGJO2jO7jgUXBOQE=
+deploy:
+  provider: npm
+  email: lewis.cowper@googlemail.com
+  skip_cleanup: true
+  api_key:
+    secure: cE8YUlvW4uGdstVH2LNHtBKS1qRjIHzn8mpyZnTv+dwlhaZWZ2yGsgPoV/qNu5M8Mo3Ck8axU8tpau1TpENQurdL9FotzMNlVCcvM1a3maF6v6kn6pEEyVyzfr8KztskaWgMRiIQEQUvo6QAV1ChaVA+vFYS0w7dLGhLFaEpRc9I7+ec7ueSU/j81mWWWvtza8cr45OU/JtWPJSS7+xB9h0yVaRI1T99Z+a0yztAQuRAWspVyJ31V+2086yg559LySPJystJC9vGZNPCqKRSxTGId2PRLGdxSOk9SMtiOyKxxmxkKeo6zJ6kChuGOShhcYZy7VdMMCfBVQvaPRoA2Fr3aa9N17uWjsAxDw2Iqg3hO+bPNzVPoUnaRW+KwrN+umiK7p0QVClbQofBYJHBErD7MbVQ53ejYzWfREA3QFOhzJerzyatjIXbzZlf4RBsXKnIt0b120qJdrfyfp7soSn0QLEqopFZZeYzKRGwobGGKEksyZyuBvY9s8r3Qzhzy8p3QYeUM8E8yTZkcCe5LDvU6eXla9CiYk07rdgNyHvgD5GEz6VWQxrbTBUSnctyW/r26da7xv3PPIBJyv15ySnwrvNd2VYJ19kCu5rKG4/aojjGe3Jp7UlRaobCJkooNdh6AvC1ZRs5AsWGc2wjNRVtVijsPLbRJ8VgiHwkYXI=
+  on:
+    branch: master
+    repo: lewiscowper/semantic-create-module
