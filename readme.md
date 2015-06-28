@@ -1,5 +1,5 @@
 # semantic-create-module
-[![NPM](https://nodei.co/npm/semantic-create-module.png)](https://nodei.co/npm/semantic-create-module/)
+[![NPM](https://nodei.co/npm/semantic-create-module.png)](https://www.npmjs.com/package/semantic-create-module)
 
 Helper tool for the usual steps to create a module:
 
